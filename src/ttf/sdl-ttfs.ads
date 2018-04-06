@@ -27,7 +27,8 @@
 with Ada.Finalization;
 with Ada.Strings.UTF_Encoding;
 with Interfaces.C;
-with SDL.Video;
+with SDL.Video.Palettes;
+with SDL.Video.Surfaces;
 
 package SDL.TTFs is
    package UTF_Strings renames Ada.Strings.UTF_Encoding;
@@ -126,11 +127,24 @@ package SDL.TTFs is
    function Face_Style_Name (Self : in Fonts) return String with
      Inline => True;
 
-   function Size_Latin_1 (Self : in Fonts; Text : in String) return Video.Sizes with
+   function Size_Latin_1 (Self : in Fonts; Text : in String) return SDL.Sizes with
      Inline => True;
 
-   function Size_UTF_8 (Self : in Fonts; Text : in UTF_Strings.UTF_8_String) return Video.Sizes with
+   function Size_UTF_8 (Self : in Fonts; Text : in UTF_Strings.UTF_8_String) return SDL.Sizes with
      Inline => True;
+
+   function Render_Solid (Self   : in Fonts;
+                          Text   : in String;
+                          Colour : in SDL.Video.Palettes.Colour) return SDL.Video.Surfaces.Surface;
+
+   function Render_Shaded (Self              : in Fonts;
+                           Text              : in String;
+                           Colour            : in SDL.Video.Palettes.Colour;
+                           Background_Colour : in SDL.Video.Palettes.Colour) return SDL.Video.Surfaces.Surface;
+
+   function Render_Blended (Self   : in Fonts;
+                            Text   : in String;
+                            Colour : in SDL.Video.Palettes.Colour) return SDL.Video.Surfaces.Surface;
 private
    type Internal_Fonts is null record;
    type Fonts_Pointer is access all Internal_Fonts with
@@ -139,8 +153,9 @@ private
 
    type Fonts is new Ada.Finalization.Controlled with
       record
-         Internal : Fonts_Pointer := null;
+         Internal     : Fonts_Pointer := null;
+         Source_Freed : Boolean       := False;  -- Whether the Makers.* subprogram has already closed the font.
       end record;
 
-   Null_Font : constant Fonts := (Ada.Finalization.Controlled with Internal => <>);
+   Null_Font : constant Fonts := (Ada.Finalization.Controlled with others => <>);
 end SDL.TTFs;

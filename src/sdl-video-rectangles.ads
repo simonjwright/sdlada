@@ -31,42 +31,31 @@ package SDL.Video.Rectangles is
 
    Rectangle_Error : exception;
 
-   type Size is
-      record
-         Width  : C.int;
-         Height : C.int;
-      end record with
+   type Size_Arrays is array (C.size_t range <>) of aliased SDL.Sizes with
      Convention => C;
 
-   type Size_Arrays is array (C.size_t range <>) of aliased Size with
-     Convention => C;
-
-   type Point is
-      record
-         X : C.int;
-         Y : C.int;
-      end record with
-     Convention => C;
+   subtype Point is SDL.Coordinates;
 
    type Point_Arrays is array (C.size_t range <>) of aliased Point with
      Convention => C;
 
    type Line_Segment is
       record
-         Start  : Point;
-         Finish : Point;
+         Start  : SDL.Coordinates;
+         Finish : SDL.Coordinates;
       end record with
      Convention => C;
 
    type Line_Arrays is array (C.size_t range <>) of aliased Line_Segment with
      Convention => C;
 
+   --  TODO: Replace with Point and Sizes?
    type Rectangle is
       record
-         X      : C.int;
-         Y      : C.int;
-         Width  : C.int;
-         Height : C.int;
+         X      : SDL.Coordinate;
+         Y      : SDL.Coordinate;
+         Width  : SDL.Natural_Dimension;
+         Height : SDL.Natural_Dimension;
       end record with
      Convention => C;
 

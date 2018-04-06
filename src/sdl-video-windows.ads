@@ -36,6 +36,17 @@ with System;
 package SDL.Video.Windows is
    Window_Error : exception;
 
+   --  Return a special coordinate value to indicate that you don't care what
+   --  the window position is. Note that you can still specify a target
+   --  display.
+   function Undefined_Window_Position
+     (Display : Natural := 0) return SDL.Natural_Coordinate;
+
+   --  Return a special coordinate value to indicate that the window position
+   --  should be centered.
+   function Centered_Window_Position
+     (Display : Natural := 0) return SDL.Natural_Coordinate;
+
    type Window_Flags is mod 2 ** 32 with
      Convention => C;
 
@@ -60,12 +71,6 @@ package SDL.Video.Windows is
 
    type ID is mod 2 ** 32 with
      Convention => C;
-
-   type Positions is
-      record
-         X : Positive;
-         Y : Positive;
-      end record;
 
    type Native_Window is private;
 
@@ -116,23 +121,23 @@ package SDL.Video.Windows is
    function Get_ID (Self : in Window) return ID with
      Inline => True;
 
-   function Get_Maximum_Size (Self : in Window) return Sizes;
-   procedure Set_Maximum_Size (Self : in out Window; Size : in Sizes) with
+   function Get_Maximum_Size (Self : in Window) return SDL.Sizes;
+   procedure Set_Maximum_Size (Self : in out Window; Size : in SDL.Sizes) with
      Inline => True;
 
-   function Get_Minimum_Size (Self : in Window) return Sizes;
-   procedure Set_Minimum_Size (Self : in out Window; Size : in Sizes) with
+   function Get_Minimum_Size (Self : in Window) return SDL.Sizes;
+   procedure Set_Minimum_Size (Self : in out Window; Size : in SDL.Sizes) with
      Inline => True;
 
    function Pixel_Format (Self : in Window) return SDL.Video.Pixel_Formats.Pixel_Format with
      Inline => True;
 
-   function Get_Position (Self : in Window) return Positions;
-   procedure Set_Position (Self : in out Window; Position : Positions) with
+   function Get_Position (Self : in Window) return SDL.Natural_Coordinates;
+   procedure Set_Position (Self : in out Window; Position : SDL.Natural_Coordinates) with
      Inline => True;
 
-   function Get_Size (Self : in Window) return Sizes;
-   procedure Set_Size (Self : in out Window; Size : in Sizes) with
+   function Get_Size (Self : in Window) return SDL.Sizes;
+   procedure Set_Size (Self : in out Window; Size : in SDL.Sizes) with
      Inline => True;
 
    function Get_Surface (Self : in Window) return SDL.Video.Surfaces.Surface;

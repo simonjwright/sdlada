@@ -580,7 +580,7 @@ package body SDL.Video.GL is
       end if;
    end Bind_Texture;
 
-   procedure Bind_Texture (Texture : in SDL.Video.Textures.Texture; Size : out SDL.Video.Rectangles.Size) is
+   procedure Bind_Texture (Texture : in SDL.Video.Textures.Texture; Size : out SDL.Sizes) is
       function SDL_GL_Bind_Texture (T : in SDL.C_Pointers.Texture_Pointer; W, H : out C.int) return C.int with
         Import        => True,
         Convention    => C,

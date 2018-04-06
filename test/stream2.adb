@@ -14,16 +14,19 @@ with SDL.Video.Windows.Makers;
 with System;
 
 procedure Stream2 is
+   use type SDL.Dimension;
+   use type SDL.Positive_Sizes;
+
    type Moose_Frames is mod 10;
    --     type Moose_Frames is range 1 .. 10;
    type Moose_Colour_Index is range 1 .. 84;
    type Moose_Palette_Array is array (Moose_Colour_Index'Range) of SDL.Video.Palettes.RGB_Colour;
 
    W                : SDL.Video.Windows.Window;
-   Moose_Size       : SDL.Video.Sizes         := (64, 88);
-   Moose_Frame_Size : constant Natural        := (Moose_Size.Width * Moose_Size.Height) - 1;
-   Moose_Frame      : Moose_Frames            := Moose_Frames'First;
-   Moose_Palette    : constant Moose_Palette_Array :=
+   Moose_Size       : SDL.Positive_Sizes              := (64, 88);
+   Moose_Frame_Size : constant SDL.Positive_Dimension := (Moose_Size.Width * Moose_Size.Height) - 1;
+   Moose_Frame      : Moose_Frames                    := Moose_Frames'First;
+   Moose_Palette    : constant Moose_Palette_Array    :=
      ((49, 49, 49),    (66, 24, 0),     (66, 33, 0),     (66, 66, 66),
       (66, 115, 49),   (74, 33, 0),     (74, 41, 16),    (82, 33, 8),
       (82, 41, 8),     (82, 49, 16),    (82, 82, 82),    (90, 41, 8),
@@ -80,7 +83,8 @@ procedure Stream2 is
    use type SDL.Video.Pixels.ARGB_8888_Access.Pointer;
    use type Ada.Calendar.Time;
 
-   type Texture_2D_Array is array (Positive range <>, Positive range <>) of aliased SDL.Video.Pixels.ARGB_8888;
+   type Texture_2D_Array is array (SDL.Natural_Dimension range <>, SDL.Natural_Dimension range <>) of
+     aliased SDL.Video.Pixels.ARGB_8888;
 
    type Cached_Moose_Frame_Array is array (Moose_Frames) of
      Texture_2D_Array (1 .. Moose_Size.Height, 1 .. Moose_Size.Width);
@@ -115,13 +119,11 @@ begin
    Cache_Moose (Cache, Moose_Frame_Data, Moose_Palette);
 
    if SDL.Initialise = True then
-      SDL.Video.Windows.Makers.Create (Win    => W,
-                                       Title  => "Stream (Moose animation)",
-                                       X      => 100,
-                                       Y      => 100,
-                                       Width  => Moose_Size.Width * 4,
-                                       Height => Moose_Size.Height * 4,
-                                       Flags  => SDL.Video.Windows.Resizable);
+      SDL.Video.Windows.Makers.Create (Win      => W,
+                                       Title    => "Stream (Moose animation)",
+                                       Position => SDL.Natural_Coordinates'(X => 100, Y => 100),
+                                       Size     => Moose_Size * 4,
+                                       Flags    => SDL.Video.Windows.Resizable);
 
       SDL.Video.Renderers.Makers.Create (Renderer, W);
 
