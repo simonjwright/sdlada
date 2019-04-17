@@ -32,6 +32,8 @@ with SDL.Video.Windows;
 with SDL.Video.Textures;
 
 package SDL.Video.GL is
+   pragma Preelaborate;
+
    SDL_GL_Error : exception;
 
    type Colour_Bit_Size is range 0 .. 8 with
@@ -175,6 +177,7 @@ package SDL.Video.GL is
    procedure Swap (Window : in out SDL.Video.Windows.Window) with
      Inline => True;
 
+   procedure Load_Library;
    procedure Load_Library (Path : in String);
    procedure Unload_Library with
      Inline => True;

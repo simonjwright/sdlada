@@ -28,6 +28,8 @@ with Ada.Unchecked_Conversion;
 with Interfaces;
 
 package SDL.Events.Mice is
+   pragma Preelaborate;
+
    --  Mouse events.
    Motion               : constant Event_Types := 16#0000_0400#;
    Button_Down          : constant Event_Types := Motion + 1;
@@ -118,7 +120,7 @@ package SDL.Events.Mice is
       end record with
      Convention => C;
 
-   type Wheel_Values is range -1 .. 1 with
+   type Wheel_Values is range -2 ** 31 .. 2 ** 31 - 1 with
      Convention => C,
      Size       => 32;
 

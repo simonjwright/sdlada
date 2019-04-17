@@ -34,6 +34,8 @@ with SDL.Video.Surfaces;
 with System;
 
 package SDL.Video.Windows is
+   pragma Preelaborate;
+
    Window_Error : exception;
 
    --  Return a special coordinate value to indicate that you don't care what
@@ -78,6 +80,7 @@ package SDL.Video.Windows is
    type User_Data is tagged private;
 
    type User_Data_Access is access all User_Data'Class;
+   pragma No_Strict_Aliasing (User_Data_Access);
 
    --  TODO: Check this type!
    type Brightness is digits 3 range 0.0 .. 1.0;
@@ -100,7 +103,7 @@ package SDL.Video.Windows is
    function Get_Data (Self : in Window; Name : in String) return User_Data_Access;
    function Set_Data (Self : in out Window; Name : in String; Item : in User_Data_Access) return User_Data_Access;
 
-   function Display_Index (Self : in Window) return Positive;
+   function Display_Index (Self : in Window) return SDL.Video.Displays.Display_Indices;
 
    procedure Get_Display_Mode (Self : in Window; Mode : out SDL.Video.Displays.Mode);
    procedure Set_Display_Mode (Self : in out Window; Mode : in SDL.Video.Displays.Mode);
@@ -176,7 +179,8 @@ package SDL.Video.Windows is
    procedure Update_Surface_Rectangles (Self : in Window; Rectangles : in SDL.Video.Rectangles.Rectangle_Arrays);
 
    --  Determine whether any windows have been created.
-   function Exist return Boolean;
+   function Exist return Boolean with
+     Inline => True;
 private
    --  TODO: Make this a proper type.
    type Native_Window is new System.Address;

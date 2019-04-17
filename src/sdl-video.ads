@@ -27,6 +27,8 @@
 with Interfaces.C;
 
 package SDL.Video is
+   pragma Preelaborate;
+
    package C renames Interfaces.C;
 
    Video_Error : exception;
@@ -69,7 +71,4 @@ package SDL.Video is
    function Driver_Name (Index : in Positive) return String;
 
    function Current_Driver_Name return String;
-
-   --  Videe displays.
-   function Total_Displays return Positive;
 end SDL.Video;

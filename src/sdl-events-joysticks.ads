@@ -25,6 +25,8 @@
 --  Joystick specific events.
 --------------------------------------------------------------------------------------------------------------------
 package SDL.Events.Joysticks is
+   pragma Preelaborate;
+
    --  Joystick events.
    Axis_Motion       : constant Event_Types := 16#0000_0600#;
    Ball_Motion       : constant Event_Types := Axis_Motion + 1;
@@ -147,7 +149,8 @@ package SDL.Events.Joysticks is
      Convention    => C,
      External_Name => "SDL_JoystickUpdate";
 
-   function Is_Polling_Enabled return Boolean;
+   function Is_Polling_Enabled return Boolean with
+     Inline => True;
 
    procedure Enable_Polling with
      Inline => True;

@@ -34,6 +34,8 @@ with SDL.Events.Touches;
 with SDL.Events.Files;
 
 package SDL.Events.Events is
+   pragma Preelaborate;
+
    type Event_Selector is (Is_Event,
                            Is_Window_Event,
                            Is_Keyboard_Event,
@@ -130,7 +132,8 @@ package SDL.Events.Events is
    --  If the are any pending events, the next event is removed from the queue
    --  and stored in Event, and then this returns True. Otherwise, this does
    --  nothing and returns False.
-   function Poll (Event : out Events) return Boolean;
+   function Poll (Event : out Events) return Boolean with
+     Inline => True;
 
    --  Wait until an event is pending.
    --

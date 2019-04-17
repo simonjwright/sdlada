@@ -22,7 +22,6 @@
 --------------------------------------------------------------------------------------------------------------------
 with Interfaces.C;
 with Interfaces.C.Strings;
-with Ada.Text_IO; use Ada.Text_IO;
 with SDL.Error;
 
 package body SDL.Video is
@@ -102,19 +101,4 @@ package body SDL.Video is
 
       return C.Strings.Value (C_Str);
    end Current_Driver_Name;
-
-   function Total_Displays return Positive is
-      function SDL_Get_Num_Video_Displays return C.int with
-        Import        => True,
-        Convention    => C,
-        External_Name => "SDL_GetNumVideoDisplays";
-
-      Num : constant C.int := SDL_Get_Num_Video_Displays;
-   begin
-      if Num <= 0 then
-         raise Video_Error with SDL.Error.Get;
-      end if;
-
-      return Positive (Num);
-   end Total_Displays;
 end SDL.Video;
