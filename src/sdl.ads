@@ -10,7 +10,7 @@ with SDL_Linker;
 
 package SDL is
    pragma Pure;
-   pragma Linker_Options (SDL_Linker.Options);
+   pragma Unreferenced (SDL_Linker);
 
    package C renames Interfaces.C;
 
