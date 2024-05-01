@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v4
     -
       name: alire-project/setup-alire
-      uses: alire-project/setup-alire@v2
+      uses: alire-project/setup-alire@v3
     -
       name: Install toolchain
       run: |
