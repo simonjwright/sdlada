@@ -90,4 +90,9 @@ library project SDLAda is
       for Default_Switches ("C") use Common_Switches & C_Switches;
       for Default_Switches ("Ada") use Common_Switches & Ada_Switches;
    end Compiler;
+
+   package Linker is
+      for Default_Switches ("ada") use ("-Wl,-ld_classic");
+   end Linker;
+
 end SDLAda;

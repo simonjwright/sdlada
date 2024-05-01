@@ -31,4 +31,7 @@ project Tools is
    --     package Builder is
    --        for Default_Switches ("Ada") use ("-gnat2012", "-gnata"); --, "-gnatG");
    --     end Builder;
+   package Linker is
+      for Default_Switches ("ada") use ("-Wl,-ld_classic");
+   end Linker;
 end Tools;
