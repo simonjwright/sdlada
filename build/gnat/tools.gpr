@@ -34,13 +34,13 @@ project Tools is
    --        for Default_Switches ("Ada") use ("-gnat2012", "-gnata"); --, "-gnatG");
    --     end Builder;
 
-   package Linker is
-      case Platform is
-         when "macosx" | "macos_homebrew" | "macos_ports" =>
-            for Default_Switches ("ada") use ("-Wl,-ld_classic");
-         when others =>
-            null;
-      end case;
-   end Linker;
+   --  package Linker is
+   --     case Platform is
+   --        when "macosx" | "macos_homebrew" | "macos_ports" =>
+   --           for Default_Switches ("ada") use ("-Wl,-ld_classic");
+   --        when others =>
+   --           null;
+   --     end case;
+   --  end Linker;
 
 end Tools;
