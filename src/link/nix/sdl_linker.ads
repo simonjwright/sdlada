@@ -6,5 +6,5 @@
 package SDL_Linker is
    pragma Pure;
 
-   pragma Linker_Options ("-lSDL2");
+   Options : constant String := "-lSDL2";
 end SDL_Linker;
