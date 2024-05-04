@@ -32,9 +32,12 @@ jobs:
     -
       name: Install SDL2.framework
       run: |
-        curl -LJ -v https://github.com/libsdl-org/SDL/releases/download/release-2.30.3/SDL2-2.30.3.dmg --output ~/tmp/SDL2.dmg
+        ls ~
+        mkdir -p ~/tmp
+        curl -J -v https://github.com/libsdl-org/SDL/releases/download/release-2.30.3/SDL2-2.30.3.dmg -o ~/tmp/SDL2.dmg
         hdiutil attach -mountpoint ~/tmp/SDL2 ~/tmp/SDL2.dmg
         cp -pR ~/tmp/SDL2/SDL2.framework /Library/Frameworks
+        hdiutil detach ~/tmp/SDL2
       shell: bash
     -
       name: Build and run
