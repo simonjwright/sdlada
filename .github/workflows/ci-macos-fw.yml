@@ -30,20 +30,12 @@ jobs:
       run: rm -f $(which brew)
       shell: bash
     -
-      name: Install SDL2.framework
-      run: |
-        mkdir -p ~/tmp
-        echo "downloading .dmg ..."
-        curl -L -v https://github.com/libsdl-org/SDL/releases/download/release-2.30.3/SDL2-2.30.3.dmg -o ~/tmp/SDL2.dmg
-        echo "... removing attributes (specifically, com.apple.quarantine) ..."
-        xattr -c ~/tmp/SDL2.dmg
-        echo "... mounting volume ..."
-        hdiutil attach -mountpoint ~/tmp/SDL2 ~/tmp/SDL2.dmg
-        echo "... copying framework to /Library/Frameworks ..."
-        sudo cp -pR ~/tmp/SDL2/SDL2.framework /Library/Frameworks
-        echo "... done."
-        hdiutil detach ~/tmp/SDL2
-      shell: bash
+      name: Install SDL2.framework to ~/Library/Frameworks
+      uses: BrettDong/setup-sdl2-frameworks@main
+    -
+      name: Copy SDL2.framework to /Library/Frameworks
+      run: sudo cp -pR ~/Library/Frameworks/SDL2.framewwork /Library/Frameworks
+      shwll: bash
     -
       name: Build and run
       run: |
