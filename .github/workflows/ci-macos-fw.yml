@@ -34,7 +34,9 @@ jobs:
       uses: BrettDong/setup-sdl2-frameworks@main
     -
       name: Copy SDL2.framework to /Library/Frameworks
-      run: sudo cp -pR ~/Library/Frameworks/SDL2.framewwork /Library/Frameworks
+      run: |
+        ls -l ~/Library/Frameworks
+        sudo cp -pR ~/Library/Frameworks/SDL2.framewwork /Library/Frameworks
       shell: bash
     -
       name: Build and run
